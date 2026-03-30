@@ -3,18 +3,19 @@
 #include <iostream>
 #include <string>
 
-static const char* statusStr(eventengine::TimerStatus s) {
+static const char* statusStr(eventengine::timer::TimerStatus s) {
     switch (s) {
-        case eventengine::TimerStatus::Running:   return "Running";
-        case eventengine::TimerStatus::Paused:    return "Paused";
-        case eventengine::TimerStatus::Expired:   return "Expired";
-        case eventengine::TimerStatus::Cancelled: return "Cancelled";
+        case eventengine::timer::TimerStatus::Running:   return "Running";
+        case eventengine::timer::TimerStatus::Paused:    return "Paused";
+        case eventengine::timer::TimerStatus::Expired:   return "Expired";
+        case eventengine::timer::TimerStatus::Cancelled: return "Cancelled";
     }
     return "Unknown";
 }
 
 int main() {
     using namespace eventengine;
+    using namespace eventengine::timer;
 
     std::cout << "=== TimerService Full Test ===\n\n";
 

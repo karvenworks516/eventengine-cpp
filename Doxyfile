@@ -10,7 +10,7 @@ CREATE_SUBDIRS         = NO
 INPUT                  = include/eventengine
 FILE_PATTERNS          = *.hpp *.hpp.in
 RECURSIVE              = YES
-EXCLUDE_PATTERNS       = */third_party/*
+EXCLUDE_PATTERNS       = */third_party/* */detail/*
 
 # Extraction
 EXTRACT_ALL            = NO

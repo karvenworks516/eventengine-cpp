@@ -5,8 +5,12 @@ set(EVENTENGINE_SOURCES
 
     # Timer
     timer/core/timer.cpp
-    timer/service/duration.cpp
-    timer/service/repeat_policy.cpp
+
+    # Thread pool
+    threadpool/core/thread_pool_work.cpp
+    threadpool/service/thread_pool_service.cpp
+
+    # Timer service
     timer/service/timer_service.cpp
 )
 

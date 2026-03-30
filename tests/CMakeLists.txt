@@ -11,6 +11,7 @@ include(GoogleTest)
 
 set(EVENTENGINE_TEST_SOURCES
     test_timer_service.cpp
+    test_thread_pool_service.cpp
 )
 
 # Pick the link target — prefer static

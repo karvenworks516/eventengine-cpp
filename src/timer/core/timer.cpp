@@ -1,20 +1,21 @@
-#include <eventengine/timer.hpp>
+#include <eventengine/detail/timer.hpp>
 
 namespace eventengine {
+namespace timer {
 
 Timer::Timer(Loop& loop) : Handle(loop) {
     int r = uv_timer_init(loop.raw(), handle_);
     if (r < 0) {
         delete handle_;
         handle_ = nullptr;
-        Error(r).throwIfError();
+        Error::fromUV(r).throwIfError();
     }
 }
 
 Error Timer::start(Callback cb, uint64_t timeout_ms, uint64_t repeat_ms) {
     callback_ = std::move(cb);
     int r = uv_timer_start(handle_, onTimer, timeout_ms, repeat_ms);
-    return Error(r);
+    return Error::fromUV(r);
 }
 
 void Timer::startOrThrow(Callback cb, uint64_t timeout_ms, uint64_t repeat_ms) {
@@ -23,7 +24,7 @@ void Timer::startOrThrow(Callback cb, uint64_t timeout_ms, uint64_t repeat_ms) {
 
 Error Timer::stop() {
     int r = uv_timer_stop(handle_);
-    return Error(r);
+    return Error::fromUV(r);
 }
 
 void Timer::stopOrThrow() {
@@ -32,7 +33,7 @@ void Timer::stopOrThrow() {
 
 Error Timer::again() {
     int r = uv_timer_again(handle_);
-    return Error(r);
+    return Error::fromUV(r);
 }
 
 void Timer::setRepeat(uint64_t repeat_ms) {
@@ -52,4 +53,5 @@ void Timer::onTimer(uv_timer_t* handle) {
     if (t && t->callback_) t->callback_();
 }
 
+} // namespace timer
 } // namespace eventengine

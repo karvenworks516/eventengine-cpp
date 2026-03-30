@@ -10,6 +10,7 @@
 #include <limits>
 
 namespace eventengine {
+namespace timer {
 
 /// @brief Describes how a managed timer repeats after its initial fire.
 ///
@@ -51,6 +52,7 @@ private:
     uint32_t maxCount_;
 };
 
+} // namespace timer
 } // namespace eventengine
 
 #endif // EVENTENGINE_REPEAT_POLICY_HPP

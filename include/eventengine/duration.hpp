@@ -8,6 +8,7 @@
 #include <cstdint>
 
 namespace eventengine {
+namespace timer {
 
 /// @brief Represents a time duration stored internally as milliseconds.
 ///
@@ -67,6 +68,7 @@ private:
     uint64_t ms_;
 };
 
+} // namespace timer
 } // namespace eventengine
 
 #endif // EVENTENGINE_DURATION_HPP

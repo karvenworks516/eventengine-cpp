@@ -13,21 +13,25 @@ class Error;
 class Exception;
 class Loop;
 
-template <typename Derived, typename UvHandle>
-class Handle;
-
-// Timer
-class Duration;
-class RepeatPolicy;
-class Timer;
-class TimerService;
-
-enum class TimerStatus;
-enum class TimerEvent;
-struct TimerInfo;
-
 enum class Service;
 class ServiceConfig;
+
+// Timer (public)
+namespace timer {
+    class Duration;
+    class RepeatPolicy;
+    class TimerService;
+    enum class TimerStatus;
+    enum class TimerEvent;
+    struct TimerInfo;
+} // namespace timer
+
+// Thread pool (public)
+namespace threadpool {
+    class ThreadPoolService;
+    enum class TaskStatus;
+    struct TaskInfo;
+} // namespace threadpool
 
 } // namespace eventengine
 

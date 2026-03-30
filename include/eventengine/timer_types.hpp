@@ -10,6 +10,7 @@
 #include <cstdint>
 
 namespace eventengine {
+namespace timer {
 
 /// @brief Current status of a managed timer.
 enum class TimerStatus {
@@ -41,6 +42,7 @@ struct TimerInfo {
     Duration remainingTime;      ///< Time remaining until the next fire.
 };
 
+} // namespace timer
 } // namespace eventengine
 
 #endif // EVENTENGINE_TIMER_TYPES_HPP

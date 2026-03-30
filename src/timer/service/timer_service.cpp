@@ -3,6 +3,7 @@
 #include <algorithm>
 
 namespace eventengine {
+namespace timer {
 
 TimerService::TimerService(Loop& loop, size_t maxTimers)
     : loop_(loop), maxTimers_(maxTimers) {}
@@ -100,9 +101,9 @@ Error TimerService::setTimer(const std::string& id,
                               Callback cb,
                               RepeatPolicy repeat,
                               const std::string& label) {
-    if (id.empty()) return Error(UV_EINVAL);
-    if (timers_.count(id) > 0) return Error(UV_EEXIST);
-    if (timers_.size() >= maxTimers_) return Error(UV_ENOSPC);
+    if (id.empty()) return Error(EE_TIMER_INVALID_ID);
+    if (timers_.count(id) > 0) return Error(EE_TIMER_ALREADY_EXISTS);
+    if (timers_.size() >= maxTimers_) return Error(EE_TIMER_LIMIT_REACHED);
 
     flushPending();
 
@@ -135,7 +136,7 @@ void TimerService::setTimerOrThrow(const std::string& id,
 
 Error TimerService::cancelTimer(const std::string& id) {
     auto it = timers_.find(id);
-    if (it == timers_.end()) return Error(UV_ENOENT);
+    if (it == timers_.end()) return Error(EE_TIMER_NOT_FOUND);
 
     it->second.status = TimerStatus::Cancelled;
     if (it->second.timer) {
@@ -167,8 +168,8 @@ void TimerService::cancelAll() {
 
 Error TimerService::pauseTimer(const std::string& id) {
     auto it = timers_.find(id);
-    if (it == timers_.end()) return Error(UV_ENOENT);
-    if (it->second.status != TimerStatus::Running) return Error(UV_EALREADY);
+    if (it == timers_.end()) return Error(EE_TIMER_NOT_FOUND);
+    if (it->second.status != TimerStatus::Running) return Error(EE_TIMER_ALREADY_PAUSED);
 
     auto& entry = it->second;
     entry.remainingMs = entry.timer->getDueIn();
@@ -184,8 +185,8 @@ void TimerService::pauseTimerOrThrow(const std::string& id) {
 
 Error TimerService::resumeTimer(const std::string& id) {
     auto it = timers_.find(id);
-    if (it == timers_.end()) return Error(UV_ENOENT);
-    if (it->second.status != TimerStatus::Paused) return Error(UV_EALREADY);
+    if (it == timers_.end()) return Error(EE_TIMER_NOT_FOUND);
+    if (it->second.status != TimerStatus::Paused) return Error(EE_TIMER_NOT_PAUSED);
 
     auto& entry = it->second;
     entry.timeout = Duration::milliseconds(entry.remainingMs);
@@ -227,7 +228,7 @@ Error TimerService::rescheduleTimer(const std::string& id,
                                      Duration timeout,
                                      RepeatPolicy repeat) {
     auto it = timers_.find(id);
-    if (it == timers_.end()) return Error(UV_ENOENT);
+    if (it == timers_.end()) return Error(EE_TIMER_NOT_FOUND);
 
     auto& entry = it->second;
     entry.timer->stop();
@@ -323,4 +324,5 @@ void TimerService::clearEventListener() {
     eventListener_ = nullptr;
 }
 
+} // namespace timer
 } // namespace eventengine

@@ -7,11 +7,19 @@ A cross-platform C++17 event-driven library built on [libuv](https://libuv.org/)
 - **Event Loop** — RAII-managed event loop with Default, Once, and NoWait run modes
 - **Timers** — one-shot and repeating timers with pause/resume support
 - **Timer Service** — managed timer creation, cancellation, rescheduling, and querying with configurable repeat policies (finite count or infinite) and event listeners
+- **Thread Pool Service** — named task submission, cancellation, timeout, and status querying with stats tracking
 - **Dual error model** — every fallible operation offers both an error-code variant and an exception-throwing variant
 - **RAII handle lifecycle** — all handles are automatically cleaned up on destruction; move semantics are fully supported
 - **Cross-platform** — builds and runs on macOS, Linux, and Windows
 - **Signal handling** *(planned)*
-- **Thread pool** *(planned)*
+
+## Namespace Structure
+
+| Namespace | Contents |
+|-----------|----------|
+| `eventengine` | Core types — Error, Exception, Loop, Handle |
+| `eventengine::timer` | Timer, TimerService, Duration, RepeatPolicy |
+| `eventengine::threadpool` | Work, ThreadPoolService, TaskStatus, TaskInfo |
 
 ## Platform Dependencies
 
@@ -43,13 +51,13 @@ libuv v1.52.1 is bundled as a Git submodule under `third_party/libuv` and requir
 
 Run the provided build script from the project root:
 
-    ./buildScripts/build.sh
+    ./build_scripts/build.sh
 
 ### Windows
 
 Run the PowerShell build script from the project root:
 
-    .\buildScripts\build.ps1
+    .\build_scripts\build.ps1
 
 ### Manual CMake Build
 
@@ -69,8 +77,8 @@ Both build scripts support additional flags such as `--debug`, `--clean`, `--no-
 
 ### Running Tests
 
-    ./buildScripts/run_tests.sh              # macOS / Linux
-    .\buildScripts\run_tests.ps1             # Windows
+    ./build_scripts/run_tests.sh              # macOS / Linux
+    .\build_scripts\run_tests.ps1             # Windows
 
 Use `--filter "TimerServiceTest.*"` to run a subset or `--list` to see available tests.
 
@@ -78,7 +86,7 @@ Use `--filter "TimerServiceTest.*"` to run a subset or `--list` to see available
 
 API documentation is generated from source using [Doxygen](https://www.doxygen.nl/). To build it locally:
 
-    ./buildScripts/build_docs.sh
+    ./build_scripts/build_docs.sh
 
 Or via CMake (requires Doxygen to be installed):
 
@@ -91,6 +99,17 @@ Doxygen can be installed with:
 - **macOS** — `brew install doxygen`
 - **Linux** — `sudo apt-get install doxygen` (or equivalent)
 - **Windows** — `choco install doxygen`
+
+## Design Documentation
+
+| Document | Description |
+|----------|-------------|
+| [docs/DESIGN.md](docs/DESIGN.md) | Library architecture, ownership model, error handling |
+| [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) | Phase 1 implementation spec |
+| [docs/services/TIMER_SERVICE.md](docs/services/TIMER_SERVICE.md) | TimerService feature spec |
+| [docs/services/THREAD_POOL_SERVICE.md](docs/services/THREAD_POOL_SERVICE.md) | ThreadPoolService feature spec |
+| [docs/FILE_MAP.md](docs/FILE_MAP.md) | Complete file and namespace mapping |
+| [docs/TASKS.md](docs/TASKS.md) | Task tracker |
 
 ## License
 

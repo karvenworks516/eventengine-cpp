@@ -5,11 +5,12 @@
 /// @brief Low-level one-shot and repeating timer handle.
 
 #include <eventengine/export.hpp>
-#include <eventengine/handle.hpp>
+#include <eventengine/detail/handle.hpp>
 #include <functional>
 #include <cstdint>
 
 namespace eventengine {
+namespace timer {
 
 /// @brief RAII wrapper around @c uv_timer_t.
 ///
@@ -61,6 +62,7 @@ private:
     static void onTimer(uv_timer_t* handle);
 };
 
+} // namespace timer
 } // namespace eventengine
 
 #endif // EVENTENGINE_TIMER_HPP

@@ -8,7 +8,7 @@ Loop::Loop() : loop_(new uv_loop_t), owns_(true) {
     if (r < 0) {
         delete loop_;
         loop_ = nullptr;
-        Error(r).throwIfError();
+        Error::fromUV(r).throwIfError();
     }
 }
 
@@ -47,7 +47,7 @@ Loop& Loop::operator=(Loop&& other) noexcept {
 
 Error Loop::run(RunMode mode) {
     int r = uv_run(loop_, static_cast<uv_run_mode>(mode));
-    return Error(r < 0 ? r : 0);
+    return Error::fromUV(r);
 }
 
 void Loop::stop() {

@@ -9,7 +9,7 @@
 #include <eventengine/duration.hpp>
 #include <eventengine/repeat_policy.hpp>
 #include <eventengine/timer_types.hpp>
-#include <eventengine/timer.hpp>
+#include <eventengine/detail/timer.hpp>
 #include <functional>
 #include <unordered_map>
 #include <memory>
@@ -17,6 +17,7 @@
 #include <string>
 
 namespace eventengine {
+namespace timer {
 
 /// @brief Managed timer service providing creation, cancellation,
 ///        pause/resume, rescheduling, and querying of named timers.
@@ -159,6 +160,7 @@ private:
     TimerInfo buildInfo(const TimerEntry& entry) const;
 };
 
+} // namespace timer
 } // namespace eventengine
 
 #endif // EVENTENGINE_TIMER_SERVICE_HPP
