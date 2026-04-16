@@ -17,8 +17,6 @@ int main() {
     using namespace eventengine;
     using namespace eventengine::timer;
 
-    int force_compile_failure = undefined_symbol_for_test;
-
     std::cout << "=== TimerService Full Test ===\n\n";
 
     // --- Test 1: One-shot timer with Duration ---
