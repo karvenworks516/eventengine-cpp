@@ -17,8 +17,6 @@ int main() {
     using namespace eventengine;
     using namespace eventengine::timer;
 
-    std::cout << "=== TimerService Full Test ===\n\n";
-
     // --- Test 1: One-shot timer with Duration ---
     std::cout << "[Test 1] One-shot timer (200ms)\n";
     {
