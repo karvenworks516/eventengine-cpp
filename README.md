@@ -2,6 +2,8 @@
 
 A cross-platform C++17 event-driven library built on [libuv](https://libuv.org/), providing type-safe RAII wrappers for asynchronous I/O primitives.
 
+This repository includes a GitHub Actions workflow that automatically requests Copilot review for pull requests targeting `main`.
+
 ## Features
 
 - **Event Loop** — RAII-managed event loop with Default, Once, and NoWait run modes
